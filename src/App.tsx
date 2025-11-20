@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import { ApolloProvider } from "@apollo/client/react";
+import { apolloClient } from './lib/apolloClient';
+import Header from './layout/Header/Header';
+import Pokedex from './pages/Pokedex/Pokedex';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// lazy-load pages
+const HomePage = lazy(() => import('./pages/Home/Home'));
+//const PokemonPage = lazy(() => import('./pages/PokemonPage'));
+//const NotFound = lazy(() => import('./pages/NotFound'));
+
+const App: React.FC = () => (
+  <ApolloProvider client={apolloClient}>
+    <BrowserRouter>
+    <Header></Header>
+      <Suspense fallback={<div>Chargement de la page…</div>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Pokedex" element={<Pokedex />} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  </ApolloProvider>
+);
+
 
 export default App;

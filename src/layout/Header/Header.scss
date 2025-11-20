@@ -1,0 +1,28 @@
+.header {
+  background-color: #ef5350; // rouge Pokédex
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .nav {
+    display: flex;
+    gap: 24px;
+
+    &__link {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #ffd700; // jaune Pikachu
+      }
+
+      &.active {
+        border-bottom: 2px solid #fff;
+      }
+    }
+  }
+}
