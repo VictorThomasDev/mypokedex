@@ -1,0 +1,15 @@
+# pokemon.graphql
+query Pokemon($name: String!) {
+  pokemon(name: $name) {
+    id
+    name
+    types {
+      type {
+        name
+      }
+    }
+    species {
+      url
+    }
+  }
+}
